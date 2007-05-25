@@ -1,0 +1,12 @@
+Revision history for DBIx::Class::InflateColumn::ISBN
+
+0.02000 Fri May 25 15:41:44 2007
+    - Started using longer version numbers.
+    - Fixed bug in deflate method for Business::ISBN 1.x.
+    - Minor POD tweaks.
+
+0.01 Fri May 25 15:14:08 2007
+    - First version, released on an unsuspecting world.
+
+0.00 Thu May 24 21:55:43 2007
+    - First version, not released, just a placeholder.
