@@ -3,7 +3,7 @@ package DBIx::Class::InflateColumn::ISBN;
 use warnings;
 use strict;
 
-our $VERSION = '0.02000';
+our $VERSION = '0.03000';
 
 use base qw/DBIx::Class/;
 __PACKAGE__->mk_classdata('isbn_class');
@@ -15,7 +15,7 @@ DBIx::Class::InflateColumn::ISBN - Auto-create Business::ISBN objects from colum
 
 =head1 VERSION
 
-Version 0.02000
+Version 0.03000
 
 =head1 SYNOPSIS
 

@@ -1,5 +1,10 @@
 Revision history for DBIx::Class::InflateColumn::ISBN
 
+0.03000 Tue May 29 17:50:28 2007
+    - Tweaked Makefile.PL and TODO files.
+    - Nuked warnings from the tests.
+    - Added workaround for 'validation error checked' test.
+
 0.02000 Fri May 25 15:41:44 2007
     - Started using longer version numbers.
     - Fixed bug in deflate method for Business::ISBN 1.x.

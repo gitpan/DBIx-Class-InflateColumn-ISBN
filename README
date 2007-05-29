@@ -3,7 +3,7 @@ NAME
     from columns.
 
 VERSION
-    Version 0.02000
+    Version 0.03000
 
 SYNOPSIS
     Load this component and declare columns as ISBNs with the appropriate

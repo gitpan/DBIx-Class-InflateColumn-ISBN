@@ -11,7 +11,7 @@ requires 'DBIx::Class' => 0.07005;
 requires 'Business::ISBN' => 1.82;
 
 tests 't/*.t';
-clean_files 'DBIx-Class-InflateColumn-ISBN-* t/var';
+clean_files 'DBIx-Class-InflateColumn-ISBN-* Makefile inc META.yml';
 
 eval {
     system 'pod2text lib/DBIx/Class/InflateColumn/ISBN.pm > README';
