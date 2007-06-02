@@ -3,7 +3,7 @@ package DBIx::Class::InflateColumn::ISBN;
 use warnings;
 use strict;
 
-our $VERSION = '0.03000';
+our $VERSION = '0.04000';
 
 use base qw/DBIx::Class/;
 __PACKAGE__->mk_classdata('isbn_class');
@@ -15,7 +15,7 @@ DBIx::Class::InflateColumn::ISBN - Auto-create Business::ISBN objects from colum
 
 =head1 VERSION
 
-Version 0.03000
+Version 0.04000
 
 =head1 SYNOPSIS
 
@@ -29,12 +29,17 @@ Load this component and declare columns as ISBNs with the appropriate format.
             size => 13,
             is_nullable => 0,
             is_isbn => 1,
+            as_string => 0,
         }
     );
 
-It has to be a varchar rather than a simple integer given that it is possible for
-ISBNs to contain the character X. Old style ISBNs are 10 characters, not including
-hyphens, but new style ones are 13 characters.
+It has to be a varchar rather than a simple integer given that it is possible
+for ISBNs to contain the character X. Old style ISBNs are 10 characters, not
+including hyphens, but new style ones are 13 characters.
+
+The C<as_string> attribute is optional, and if set to 1 then values will be
+stored in the database with hyphens in the appopriate places. In this case, an
+extra 3 characters will be required.
 
 Then you can treat the specified column as a Business::ISBN object.
 
@@ -67,8 +72,12 @@ sub register_column {
 
     return unless defined $info->{'is_isbn'};
 
-    warn "Datatype is too small" if ($info->{'size'} && $info->{'size'} < 10);
-    warn "Datatype must not be integer" if ($info->{'data_type'} eq 'integer');
+    if ( $info->{'size'} && ($info->{'size'} < 10 ||
+      ($info->{'as_string'} && $info->{'size'} < 13)) ) {
+        $self->throw_exception("ISBN field datatype is too small");
+    }
+    $self->throw_exception("ISBN field datatype must not be integer")
+        if ($info->{'data_type'} eq 'integer');
 
     my $isbn_class = $info->{'isbn_class'} || $self->isbn_class || 'Business::ISBN';
 
@@ -77,8 +86,12 @@ sub register_column {
 
     $self->inflate_column(
         $column => {
-            inflate => sub { return $isbn_class->new(sprintf("%010s", shift)); },
-            deflate => sub { return shift->isbn; },
+            inflate => sub {
+                return $isbn_class->new(sprintf("%010s", shift));
+            },
+            deflate => sub {
+                $info->{'as_string'} ? shift->as_string : shift->isbn;
+            },
         }
     );
 }

@@ -105,8 +105,8 @@ sub populate_schema {
     my $schema = shift;
 
     $schema->populate('Library', [
-        [ qw/id book isbn/ ],
-        [ 1, 'HTML for the World Wide Web: With XHTML and CSS', '0321430840' ],
+        [ qw/id book isbn full_isbn / ],
+        [ 1, 'HTML for the World Wide Web: With XHTML and CSS', '0321430840', '032-143-084-0' ],
         [ 2, 'Final Fantasy X Official Strategy Guide', '190351133X' ],
     ]);
 

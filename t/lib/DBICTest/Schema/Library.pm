@@ -20,7 +20,14 @@ __PACKAGE__->add_columns(
         size        => 13,
         is_nullable => 0,
         is_isbn     => 1,
-    }
+    },
+    full_isbn => {
+        data_type   => 'varchar',
+        size        => 16,
+        is_nullable => 1,
+        is_isbn     => 1,
+        as_string   => 1,
+    },
 );
 
 __PACKAGE__->set_primary_key('id');
